@@ -81,7 +81,7 @@ def send_bridge_transaction(web3, account, my_address, data, network_name):
         'nonce': nonce,
         'to': networks[network_name]['contract_address'],
         'value': value_in_wei,
-        'gas': gas_limit,
+        'gas': gas_limit * 2,
         'maxFeePerGas': max_fee,
         'maxPriorityFeePerGas': priority_fee,
         'chainId': networks[network_name]['chain_id'],
