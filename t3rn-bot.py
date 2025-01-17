@@ -22,11 +22,9 @@ ascii_art = """
 
 \033[38;5;214m
 
-  K   K  OOO  N   N TTTTT L       III  JJJ   OOO
-  K  K  O   O NN  N   T   L        I    J   O   O
-  KKK   O   O N N N   T   L        I    J   O   O
-  K  K  O   O N  NN   T   L        I    J   O   O
-  K   K  OOO  N   N   T   LLLLL   III  JJJ   OOO
+AADIII
+AADIII
+AADIII
 
 \033[0m
 """
@@ -60,7 +58,7 @@ def get_brn_balance(web3, my_address):
 
 def send_bridge_transaction(web3, account, my_address, data, network_name):
     nonce = web3.eth.get_transaction_count(my_address, 'pending')
-    value_in_ether = 0.1
+    value_in_ether = 0.4
     value_in_wei = web3.to_wei(value_in_ether, 'ether')
 
     try:
@@ -70,20 +68,20 @@ def send_bridge_transaction(web3, account, my_address, data, network_name):
             'data': data,
             'value': value_in_wei
         })
-        gas_limit = gas_estimate + 1
+        gas_limit = gas_estimate + 50000
     except Exception as e:
         print(f"Error estimating gas: {e}")
         return None
 
     base_fee = web3.eth.get_block('latest')['baseFeePerGas']
-    priority_fee = web3.to_wei(1, 'gwei')
+    priority_fee = web3.to_wei(5, 'gwei')
     max_fee = base_fee + priority_fee
 
     transaction = {
         'nonce': nonce,
         'to': networks[network_name]['contract_address'],
         'value': value_in_wei,
-        'gas': gas_limit * 2,
+        'gas': gas_limit,
         'maxFeePerGas': max_fee,
         'maxPriorityFeePerGas': priority_fee,
         'chainId': networks[network_name]['chain_id'],
@@ -220,8 +218,8 @@ def main():
 
         except Exception as e:
             print(f"Terjadi kesalahan: {e}")
-            print("Wait 10 Second for Safety...")
-            time.sleep(10)
+            print("Wait 5 Second for Safety...")
+            time.sleep(5)
 
 if __name__ == "__main__":
     main()
