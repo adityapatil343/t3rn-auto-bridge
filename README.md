@@ -1,5 +1,7 @@
-xxx
-
+---
+# expired! do not use.
+(19-05-2025)
+---
 ## t3rn-airdrop-bot: 
 (t3rn site facing issue's so our bot also getting some error)
 
